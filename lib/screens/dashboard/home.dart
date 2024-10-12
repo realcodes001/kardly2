@@ -6,7 +6,7 @@ import 'package:kardly/constants/colors.dart' as color;
 import 'package:kardly/screens/cardscreens/create_card.dart';
 import 'package:kardly/utils/modals.dart';
 import 'package:kardly/screens/notifications.dart';
-
+import 'package:kardly/utils/scrollable_sheet.dart';
 // Import the individual card widgets
 import 'package:kardly/cards/visa_card.dart';
 import 'package:kardly/cards/mastercard_card.dart';
@@ -20,6 +20,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  // Step 1: Add a boolean to track visibility
+  bool _isAmountVisible = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,19 +72,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    children: const [
-                      Text(
-                        '\$786.00',
-                        style: TextStyle(
-                          fontSize: 38,
-                          fontFamily: 'BricolageGrotesque Bold',
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(
-                        Icons.visibility,
-                        size: 14,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            _isAmountVisible ? '\$786.00' : '******',
+                            style: const TextStyle(
+                              fontSize: 38,
+                              fontFamily: 'BricolageGrotesque Bold',
+                              color: Colors.black,
+                            ),
+                          ),
+                          GestureDetector(
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _isAmountVisible =
+                                      !_isAmountVisible; // Toggle the visibility
+                                });
+                              },
+                              icon: Icon(
+                                _isAmountVisible
+                                    ? Iconsax.eye
+                                    : Iconsax.eye_slash, // Change the icon
+                                size: 8,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -118,13 +138,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(width: 10),
                       Column(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.all(15),
-                            decoration: BoxDecoration(
-                              color: color.AppColor.transactionBtn_color,
-                              borderRadius: BorderRadius.circular(100),
+                          GestureDetector(
+                            onTap: () {
+                              showDraggableScrollableModal(context);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(15),
+                              decoration: BoxDecoration(
+                                color: color.AppColor.transactionBtn_color,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: const Icon(Icons.arrow_upward, size: 16),
                             ),
-                            child: const Icon(Icons.arrow_upward, size: 16),
                           ),
                           const SizedBox(height: 5),
                           const Text(

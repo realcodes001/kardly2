@@ -77,6 +77,80 @@ void showBottomModal(BuildContext context) {
   );
 }
 
+void withdrawModal(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isDismissible: true,
+    transitionAnimationController: AnimationController(
+      vsync: Navigator.of(context),
+      duration: Duration(milliseconds: 600), // Adjust this for slower animation
+    ),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      ),
+    ),
+    backgroundColor: Colors.white,
+    builder: (BuildContext context) {
+      return Container(
+        height: 320,
+        padding:
+            const EdgeInsets.only(top: 10, bottom: 15, left: 25, right: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 100,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 226, 226, 226),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Top Up',
+              style: TextStyle(
+                fontSize: 26,
+                fontFamily: 'BricolageGrotesque Bold',
+              ),
+            ),
+            const SizedBox(height: 3),
+            const Text(
+              'Select a top up method',
+              style: TextStyle(
+                fontSize: 14,
+                fontFamily: 'Montserrat Regular',
+                color: Color(0xFF888888),
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+            const SizedBox(height: 30),
+            // Bank Transfer option
+            buildMethodButton(
+                context, 'Bank Transfer', 'Top up via bank transfer',
+                onTap: () {}),
+            const SizedBox(height: 20),
+            // Crypto currency option
+            buildMethodButton(
+                context, 'Crypto currency', 'Top up via crypto currency',
+                onTap: () {
+              Navigator.pop(context); // Close the current modal
+              Future.delayed(Duration(milliseconds: 200), () {
+                showBottomModal2(context); // Open the second modal
+              });
+            }),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+
 void showBottomModal2(BuildContext context) {
   showModalBottomSheet(
     context: context,
@@ -1018,15 +1092,20 @@ void contactUsModal(BuildContext context) {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  padding: const EdgeInsets.all(4),
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 226, 226, 226),
-                    borderRadius: BorderRadius.circular(20),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(255, 226, 226, 226),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Icon(Iconsax.close_circle),
                   ),
-                  child: Icon(Iconsax.close_circle),
                 ),
               ],
             ),
