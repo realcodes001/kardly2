@@ -11,7 +11,7 @@ void walletModal(BuildContext context) {
     barrierLabel: "Modal",
     barrierDismissible: true,
     barrierColor: Colors.black.withOpacity(0.5),
-    transitionDuration: const Duration(milliseconds: 600),
+    transitionDuration: const Duration(milliseconds: 900),
     pageBuilder: (BuildContext context, Animation<double> animation,
         Animation<double> secondaryAnimation) {
       return StatefulBuilder(
@@ -26,7 +26,7 @@ void walletModal(BuildContext context) {
               child: DraggableScrollableSheet(
                 initialChildSize: 0.8,
                 minChildSize: 0.3,
-                maxChildSize: 0.9,
+                maxChildSize: 1,
                 builder:
                     (BuildContext context, ScrollController scrollController) {
                   return Material(
@@ -41,205 +41,211 @@ void walletModal(BuildContext context) {
                         child: Padding(
                           padding: const EdgeInsets.only(
                               top: 10, bottom: 15, left: 25, right: 25),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context); // Close modal
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(2),
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 226, 226, 226),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: const Icon(
-                                        Icons.close,
-                                        size: 14,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              const Text(
-                                'Withdraw to wallet',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'BricolageGrotesque SemiBold',
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Token',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'BricolageGrotesque Light',
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Column(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(15),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: color.AppColor.lightgray),
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                            height: 20,
-                                            width: 20,
-                                            child: Image.asset(
-                                              'lib/images/usdt2.png',
-                                            )),
-                                        const SizedBox(
-                                          width: 4,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context); // Close modal
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(2),
+                                        width: 30,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 226, 226, 226),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
-                                        const Text(
-                                          'USDT',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontFamily:
-                                                'BricolageGrotesque Regular',
-                                            color: Colors.black,
-                                          ),
+                                        child: const Icon(
+                                          Icons.close,
+                                          size: 14,
                                         ),
-                                        const Spacer(),
-                                        NetworkDropdown(
-                                          onSelected: (String network) {
-                                            // Perform any action when a network is selected.
-                                            print("Selected network: $network");
-                                            // You can update the state or show a snackbar, etc.
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 40),
-                              Row(
-                                children: [
-                                  const Text(
-                                    'Amount',
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontFamily:
-                                            'BricolageGrotesque Regular',
-                                        color: Colors.black),
-                                  ),
-                                  const Spacer(),
-                                  Text(
-                                    'Available: 786.00 USDT',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily:
-                                            'BricolageGrotesque Regular',
-                                        color: color.AppColor.subtitle),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 4,
-                              ),
-                              TextField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 232, 232, 232),
-                                        width: 1.5, // Border width
                                       ),
-                                      borderRadius: BorderRadius.circular(15),
                                     ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Colors.blue,
-                                        width: 2.0, // Adjust thickness
-                                      ),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    hintText:
-                                        'How much do you want to withdraw ?',
-                                    hintStyle: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily:
-                                            'BricolageGrotesque Regular',
-                                        color: Colors.grey)),
-                              ),
-                              const SizedBox(height: 20),
-                              const Text(
-                                'Wallet Address',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'BricolageGrotesque Regular',
-                                    color: Colors.black),
-                              ),
-                              const SizedBox(height: 4),
-                              TextField(
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 232, 232, 232),
-                                        width: 1.5, // Border width
-                                      ),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
-                                        color: Colors.blue,
-                                        width: 2.0, // Adjust thickness
-                                      ),
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    hintText: 'Enter your wallet address ?',
-                                    hintStyle: const TextStyle(
-                                        fontSize: 12,
-                                        fontFamily:
-                                            'BricolageGrotesque Regular',
-                                        color: Colors.grey)),
-                              ),
-                              const SizedBox(height: 20),
-                              const SizedBox(height: 40),
-                              ElevatedButton(
-                                onPressed: () {
-                                  oopsModal(context);
-                                  // Perform actions with the selected account
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  elevation: 0,
-                                  minimumSize: const Size(double.infinity, 60),
-                                  primary: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
+                                  ],
                                 ),
-                                child: const Text(
-                                  'Withdraw',
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Withdraw to wallet',
                                   style: TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'BricolageGrotesque Light',
-                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontFamily: 'BricolageGrotesque SemiBold',
                                   ),
                                 ),
-                              )
-                            ],
+                                const SizedBox(height: 20),
+                                const Text(
+                                  'Token',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'BricolageGrotesque Light',
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Column(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(15),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: color.AppColor.lightgray),
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                              height: 20,
+                                              width: 20,
+                                              child: Image.asset(
+                                                'lib/images/usdt2.png',
+                                              )),
+                                          const SizedBox(
+                                            width: 4,
+                                          ),
+                                          const Text(
+                                            'USDT',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontFamily:
+                                                  'BricolageGrotesque Regular',
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          const Spacer(),
+                                          NetworkDropdown(
+                                            onSelected: (String network) {
+                                              // Perform any action when a network is selected.
+                                              print(
+                                                  "Selected network: $network");
+                                              // You can update the state or show a snackbar, etc.
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 40),
+                                const Text(
+                                  'Wallet Address',
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontFamily: 'BricolageGrotesque Regular',
+                                      color: Colors.black),
+                                ),
+                                const SizedBox(height: 4),
+                                TextField(
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 232, 232, 232),
+                                          width: 1.5, // Border width
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: color.AppColor.mainBtn_color2,
+                                          width: 2.0, // Adjust thickness
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      hintText: 'Enter your wallet address ?',
+                                      hintStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontFamily:
+                                              'BricolageGrotesque Regular',
+                                          color: Colors.grey)),
+                                ),
+                                const SizedBox(height: 20),
+                                Row(
+                                  children: [
+                                    const Text(
+                                      'Amount',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily:
+                                              'BricolageGrotesque Regular',
+                                          color: Colors.black),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      'Available: 786.00 USDT',
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontFamily:
+                                              'BricolageGrotesque Regular',
+                                          color: color.AppColor.subtitle),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 4,
+                                ),
+                                TextField(
+                                  keyboardType: TextInputType.phone,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                          color: Color.fromARGB(
+                                              255, 232, 232, 232),
+                                          width: 1.5, // Border width
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: color.AppColor.mainBtn_color2,
+                                          width: 2.0, // Adjust thickness
+                                        ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      hintText:
+                                          'How much do you want to withdraw ?',
+                                      hintStyle: const TextStyle(
+                                          fontSize: 12,
+                                          fontFamily:
+                                              'BricolageGrotesque Regular',
+                                          color: Colors.grey)),
+                                ),
+                                const SizedBox(height: 60),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    oopsModal(context);
+                                    // Perform actions with the selected account
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    elevation: 0,
+                                    minimumSize:
+                                        const Size(double.infinity, 60),
+                                    primary: color.AppColor.mainBtn_color2,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    'Withdraw',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'BricolageGrotesque Light',
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),

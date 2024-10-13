@@ -114,7 +114,7 @@ void showDraggableScrollableModal(BuildContext context) async {
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontFamily: 'BricolageGrotesque Regular',
-                                    color: Colors.black),
+                                    color: color.AppColor.black),
                               ),
                               const SizedBox(height: 4),
                               TextField(
@@ -132,21 +132,21 @@ void showDraggableScrollableModal(BuildContext context) async {
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Colors.blue,
+                                        color: color.AppColor.mainBtn_color2,
                                         width: 2.0, // Adjust thickness
                                       ),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     hintText:
                                         'How much do you want to withdraw ?',
-                                    hintStyle: TextStyle(
+                                    hintStyle: const TextStyle(
                                         fontSize: 12,
                                         fontFamily:
                                             'BricolageGrotesque Regular',
                                         color: Colors.grey)),
                               ),
                               const SizedBox(height: 20),
-                              Text(
+                              const Text(
                                 'Account',
                                 style: TextStyle(
                                     fontSize: 14,
@@ -194,7 +194,14 @@ void showDraggableScrollableModal(BuildContext context) async {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: Text('No Accounts Found'),
+                                          title: const Text(
+                                            'No Accounts Found',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontFamily:
+                                                  'BricolageGrotesque Bold',
+                                            ),
+                                          ),
                                           content: Text(
                                               'Please add an account before withdrawing funds.'),
                                           actions: [
@@ -203,7 +210,14 @@ void showDraggableScrollableModal(BuildContext context) async {
                                                 Navigator.of(context).pop();
                                                 // Navigate to add account page
                                               },
-                                              child: Text('Add Account'),
+                                              child: const Text(
+                                                'Add Account',
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontFamily:
+                                                      'BricolageGrotesque Bold',
+                                                ),
+                                              ),
                                             ),
                                           ],
                                         );
@@ -212,6 +226,7 @@ void showDraggableScrollableModal(BuildContext context) async {
                                   }
                                 },
                                 child: Container(
+                                  height: 60,
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 15, vertical: 10),
                                   decoration: BoxDecoration(
@@ -240,7 +255,10 @@ void showDraggableScrollableModal(BuildContext context) async {
                                               : Colors.grey,
                                         ),
                                       ),
-                                      const Icon(Icons.arrow_drop_down),
+                                      const Icon(
+                                        Icons.arrow_drop_down,
+                                        size: 12,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -255,7 +273,7 @@ void showDraggableScrollableModal(BuildContext context) async {
                                 style: ElevatedButton.styleFrom(
                                   elevation: 0,
                                   minimumSize: const Size(double.infinity, 60),
-                                  primary: Colors.blue,
+                                  primary: color.AppColor.mainBtn_color2,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
                                   ),

@@ -77,9 +77,9 @@ void showInstitutionsSheet(BuildContext context) {
     ),
     builder: (BuildContext context) {
       return DraggableScrollableSheet(
-        initialChildSize: 0.7,
+        initialChildSize: 0.8,
         minChildSize: 0.2,
-        maxChildSize: 0.8,
+        maxChildSize: 0.9,
         expand: false,
         builder: (BuildContext context, ScrollController scrollController) {
           return StatefulBuilder(

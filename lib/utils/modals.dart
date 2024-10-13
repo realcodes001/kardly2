@@ -129,7 +129,7 @@ void withdrawModal(BuildContext context) {
             const Text(
               'Select a withdrawal method',
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 12,
                 fontFamily: 'Montserrat Regular',
                 color: Color(0xFF888888),
                 fontWeight: FontWeight.w300,
@@ -1523,7 +1523,7 @@ Widget buildMethodButton(BuildContext context, String title, String description,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
         border: Border.all(color: Color(0xFFAEAEAE), width: 1),
       ),
       child: Column(
@@ -1563,7 +1563,7 @@ Widget buildMethodButton2(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
         border: Border.all(color: Color(0xFFAEAEAE), width: 1),
       ),
       child: Row(
@@ -1596,8 +1596,9 @@ Widget buildMethodButton2(
             children: [
               Container(
                 padding: const EdgeInsets.all(5),
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 247, 247, 247),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  color: const Color.fromARGB(255, 247, 247, 247),
                 ),
                 child: const Text(
                   'Currently unavailable',
