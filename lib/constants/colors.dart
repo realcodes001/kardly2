@@ -10,6 +10,7 @@ class AppColor {
   static Color red = Color.fromARGB(255, 255, 60, 60);
   static Color blues = const Color(0xFF3D1EFF);
   static Color lightgray = const Color(0xFFF0F0F0);
+  static Color lightgray2 = Color.fromARGB(255, 247, 247, 247);
   static Color arrowcolor = Color.fromARGB(255, 195, 195, 195);
   static Color black = Color.fromARGB(255, 0, 0, 0);
   static Color white = Color.fromARGB(255, 255, 255, 255);

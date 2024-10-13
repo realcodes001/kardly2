@@ -203,17 +203,22 @@ class _CreateCardState extends State<CreateCard> {
                         ),
                       ],
                     ),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: color.AppColor.secondary_color,
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Center(
-                        child: Text(
-                          'Fund wallet',
-                          style: TextStyle(
-                            color: color.AppColor.mainBtn_color,
-                            fontSize: 10,
+                    GestureDetector(
+                      onTap: () {
+                        showBottomModal(context);
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            color: color.AppColor.secondary_color,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Center(
+                          child: Text(
+                            'Fund wallet',
+                            style: TextStyle(
+                              color: color.AppColor.mainBtn_color,
+                              fontSize: 10,
+                            ),
                           ),
                         ),
                       ),

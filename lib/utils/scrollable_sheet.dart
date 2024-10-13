@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:kardly/constants/colors.dart' as color;
-import 'package:kardly/components/drop_down.dart';
+import 'package:kardly/components/modal_dropdown.dart';
+import 'package:kardly/utils/institution_modal.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void showDraggableScrollableModal(BuildContext context) {
-  // Use a StatefulBuilder to manage the state inside the dialog/modal
+void showDraggableScrollableModal(BuildContext context) async {
+  // State management for selected account
+  String? selectedAccount; // Initial value as null
+  String? savedAccountNumber;
+  String? savedAccountName;
+
+  // Load saved account details from SharedPreferences
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  savedAccountNumber = prefs.getString('accountNumber');
+  savedAccountName = prefs.getString('accountName');
+
+  // Use a StatefulBuilder to manage the state inside the modal
   showGeneralDialog(
     context: context,
     barrierLabel: "Modal",
     barrierDismissible: true,
-    barrierColor: Colors.black.withOpacity(0.5), // Background color
+    barrierColor: Colors.black.withOpacity(0.5),
     transitionDuration: const Duration(milliseconds: 600),
     pageBuilder: (BuildContext context, Animation<double> animation,
         Animation<double> secondaryAnimation) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          String? selectedAccount; // State variable to store selected account
-          List<String> accounts = [
-            "Account 1",
-            "Account 2",
-            "Account 3"
-          ]; // Replace with your actual account list
-
           return Align(
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
               behavior: HitTestBehavior.opaque,
               onTap: () {
-                Navigator.pop(context); // Close the modal when tapping outside
+                Navigator.pop(context);
               },
               child: DraggableScrollableSheet(
                 initialChildSize: 0.7,
@@ -40,7 +45,7 @@ void showDraggableScrollableModal(BuildContext context) {
                       topRight: Radius.circular(20),
                     ),
                     child: GestureDetector(
-                      onTap: () {}, // Prevents clicks inside from closing modal
+                      onTap: () {},
                       child: SingleChildScrollView(
                         controller: scrollController,
                         child: Padding(
@@ -57,15 +62,18 @@ void showDraggableScrollableModal(BuildContext context) {
                                       Navigator.pop(context); // Close modal
                                     },
                                     child: Container(
-                                      padding: const EdgeInsets.all(4),
-                                      width: 40,
-                                      height: 40,
+                                      padding: const EdgeInsets.all(2),
+                                      width: 30,
+                                      height: 30,
                                       decoration: BoxDecoration(
                                         color: const Color.fromARGB(
                                             255, 226, 226, 226),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
-                                      child: const Icon(Icons.close),
+                                      child: const Icon(
+                                        Icons.close,
+                                        size: 14,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -101,16 +109,14 @@ void showDraggableScrollableModal(BuildContext context) {
                                 ],
                               ),
                               const SizedBox(height: 40),
-                              const Text(
+                              Text(
                                 'Amount',
                                 style: TextStyle(
                                     fontSize: 14,
                                     fontFamily: 'BricolageGrotesque Regular',
                                     color: Colors.black),
                               ),
-                              const SizedBox(
-                                height: 4,
-                              ),
+                              const SizedBox(height: 4),
                               TextField(
                                 decoration: InputDecoration(
                                     border: OutlineInputBorder(
@@ -125,7 +131,7 @@ void showDraggableScrollableModal(BuildContext context) {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: const BorderSide(
+                                      borderSide: BorderSide(
                                         color: Colors.blue,
                                         width: 2.0, // Adjust thickness
                                       ),
@@ -133,14 +139,14 @@ void showDraggableScrollableModal(BuildContext context) {
                                     ),
                                     hintText:
                                         'How much do you want to withdraw ?',
-                                    hintStyle: const TextStyle(
+                                    hintStyle: TextStyle(
                                         fontSize: 12,
                                         fontFamily:
                                             'BricolageGrotesque Regular',
                                         color: Colors.grey)),
                               ),
                               const SizedBox(height: 20),
-                              const Text(
+                              Text(
                                 'Account',
                                 style: TextStyle(
                                     fontSize: 14,
@@ -150,27 +156,106 @@ void showDraggableScrollableModal(BuildContext context) {
                               const SizedBox(height: 4),
 
                               // Custom modal dropdown instead of the dropdown button
-                              CustomModalDropdown(
-                                selectedValue: selectedAccount,
-                                items: accounts,
-                                hintText: "Select an account",
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    selectedAccount =
-                                        newValue; // Update the selected account
-                                  });
+                              GestureDetector(
+                                onTap: () async {
+                                  if (savedAccountNumber != null &&
+                                      savedAccountName != null) {
+                                    // Show the modal if an account is saved
+                                    String? selected =
+                                        await showModalBottomSheet<String>(
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                      ),
+                                      builder: (BuildContext context) {
+                                        return CustomModalDropdown(
+                                          items: savedAccountName != null
+                                              ? [savedAccountName]
+                                              : [], // Ensure non-null value
+
+                                          selectedValue: selectedAccount,
+                                        );
+                                      },
+                                    );
+
+                                    // If the user selects an account, update the state to reflect the selection
+                                    if (selected != null) {
+                                      setState(() {
+                                        selectedAccount =
+                                            selected; // Update the selected account
+                                      });
+                                    }
+                                  } else {
+                                    // If no account is saved, show a message or take appropriate action
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('No Accounts Found'),
+                                          content: Text(
+                                              'Please add an account before withdrawing funds.'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                // Navigate to add account page
+                                              },
+                                              child: Text('Add Account'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
                                 },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                      color: Color.fromARGB(255, 225, 225, 225),
+                                      width: 1.5,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        selectedAccount ??
+                                            (savedAccountNumber != null &&
+                                                    savedAccountName != null
+                                                ? savedAccountName
+                                                : 'No accounts available'), // Show saved account or message
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: selectedAccount != null ||
+                                                  (savedAccountNumber != null &&
+                                                      savedAccountName != null)
+                                              ? Colors.black
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                      const Icon(Icons.arrow_drop_down),
+                                    ],
+                                  ),
+                                ),
                               ),
 
                               const SizedBox(height: 40),
                               ElevatedButton(
                                 onPressed: () {
+                                  showInstitutionsSheet(context);
                                   // Perform actions with the selected account
                                 },
                                 style: ElevatedButton.styleFrom(
                                   elevation: 0,
                                   minimumSize: const Size(double.infinity, 60),
-                                  primary: color.AppColor.mainBtn_color2,
+                                  primary: Colors.blue,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15),
                                   ),

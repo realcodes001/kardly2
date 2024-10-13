@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kardly/constants/colors.dart' as color;
 import 'package:kardly/screens/cardscreens/view_pin.dart';
+import 'package:kardly/screens/dashboard/dashboard.dart';
 import 'package:kardly/screens/security/enter_passcode.dart';
+import 'package:kardly/utils/scrollable_sheet.dart';
+import 'package:kardly/utils/wallet_modal.dart';
+import 'package:kardly/components/network_modal.dart';
+import 'package:flutter/services.dart'; // For Clipboard functionality
+import 'package:kardly/components/custom_snackbar.dart';
+import 'package:kardly/components/depo_sheet.dart';
 
 void showBottomModal(BuildContext context) {
   showModalBottomSheet(
@@ -41,7 +48,7 @@ void showBottomModal(BuildContext context) {
             const Text(
               'Top Up',
               style: TextStyle(
-                fontSize: 26,
+                fontSize: 20,
                 fontFamily: 'BricolageGrotesque Bold',
               ),
             ),
@@ -57,7 +64,7 @@ void showBottomModal(BuildContext context) {
             ),
             const SizedBox(height: 30),
             // Bank Transfer option
-            buildMethodButton(
+            buildMethodButton2(
                 context, 'Bank Transfer', 'Top up via bank transfer',
                 onTap: () {}),
             const SizedBox(height: 20),
@@ -67,7 +74,7 @@ void showBottomModal(BuildContext context) {
                 onTap: () {
               Navigator.pop(context); // Close the current modal
               Future.delayed(Duration(milliseconds: 200), () {
-                showBottomModal2(context); // Open the second modal
+                showDepositSheet(context); // Open the second modal
               });
             }),
           ],
@@ -112,15 +119,15 @@ void withdrawModal(BuildContext context) {
             ),
             const SizedBox(height: 20),
             const Text(
-              'Top Up',
+              'Withdraw',
               style: TextStyle(
-                fontSize: 26,
+                fontSize: 20,
                 fontFamily: 'BricolageGrotesque Bold',
               ),
             ),
             const SizedBox(height: 3),
             const Text(
-              'Select a top up method',
+              'Select a withdrawal method',
               style: TextStyle(
                 fontSize: 14,
                 fontFamily: 'Montserrat Regular',
@@ -131,16 +138,18 @@ void withdrawModal(BuildContext context) {
             const SizedBox(height: 30),
             // Bank Transfer option
             buildMethodButton(
-                context, 'Bank Transfer', 'Top up via bank transfer',
-                onTap: () {}),
+                context, 'Withdraw to bank', 'Withdraw to your bank account',
+                onTap: () {
+              showDraggableScrollableModal(context);
+            }),
             const SizedBox(height: 20),
             // Crypto currency option
             buildMethodButton(
-                context, 'Crypto currency', 'Top up via crypto currency',
+                context, 'Withdraw to wallet', 'Withdraw to your crypto wallet',
                 onTap: () {
               Navigator.pop(context); // Close the current modal
               Future.delayed(Duration(milliseconds: 200), () {
-                showBottomModal2(context); // Open the second modal
+                walletModal(context); // Open the second modal
               });
             }),
           ],
@@ -150,14 +159,20 @@ void withdrawModal(BuildContext context) {
   );
 }
 
-
 void showBottomModal2(BuildContext context) {
+  // Step 1: Add a variable to track the current image path.
+  String selectedNetwork = 'ERC-20';
+  String selectedImagePath =
+      'lib/images/usdtbarcode.png'; // Default image for ERC-20
+  String address = '0x3dffu5jti4ov88nw34m6beuidklfg'; // Your USDT address
+
   showModalBottomSheet(
     context: context,
     isDismissible: true,
     transitionAnimationController: AnimationController(
       vsync: Navigator.of(context),
-      duration: Duration(milliseconds: 800), // Adjust this for slower animation
+      duration:
+          const Duration(milliseconds: 800), // Adjust this for slower animation
     ),
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
@@ -167,105 +182,210 @@ void showBottomModal2(BuildContext context) {
     ),
     backgroundColor: Colors.white,
     builder: (BuildContext context) {
-      return Container(
-        padding:
-            const EdgeInsets.only(top: 10, bottom: 15, left: 25, right: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 100,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 226, 226, 226),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Top Up',
-              style: TextStyle(
-                fontSize: 26,
-                fontFamily: 'BricolageGrotesque Bold',
-              ),
-            ),
-            const SizedBox(height: 3),
-            const Text(
-              'Use the following crypto wallet address to top up',
-              style: TextStyle(
-                fontSize: 12,
-                fontFamily: 'Montserrat Regular',
-                color: Color(0xFF888888),
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Center(
-              child: Container(
-                height: 160,
-                width: 160,
-                child: Image.asset('lib/images/usdtbarcode.png'),
-              ),
-            ),
-            const SizedBox(height: 20),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      return StatefulBuilder(
+        builder: (BuildContext context, StateSetter setState) {
+          return SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.only(
+                  top: 10, bottom: 15, left: 25, right: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    '0x3dffu5jti4ov88nw34m6beuidklfg',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'BricolageGrotesque Regular',
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(
-                      Iconsax.copy,
-                      size: 14,
-                    ),
-                    onPressed: () {
-                      // Copy to clipboard logic
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              height: 50,
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              decoration: BoxDecoration(
-                color: Color(0xFF00A3D0),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
                   Center(
-                      child: Text(
-                    'Proceed',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                      fontFamily: 'BricolageGrotesque Regular',
+                    child: Container(
+                      width: 100,
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 226, 226, 226),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
-                  )),
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    'Top Up',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'BricolageGrotesque Bold',
+                    ),
+                  ),
+                  const SizedBox(height: 3),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(
+                          Icons.info,
+                          size: 10,
+                        ),
+                        SizedBox(width: 3),
+                        Text(
+                          'Send only USDT assets to this address',
+                          style: TextStyle(
+                            fontSize: 10,
+                            fontFamily: 'BricolageGrotesque Light',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Step 3: Update the image dynamically based on the selected network
+                  Center(
+                    child: Container(
+                      height: 160,
+                      width: 160,
+                      child: Image.asset(
+                          selectedImagePath), // Use dynamic image path
+                    ),
+                  ),
+
+                  const SizedBox(height: 20),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.grey[200],
+                        ),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Image.asset('lib/images/usdt2.png'),
+                            ),
+                            const SizedBox(width: 4),
+                            const Text(
+                              'USDT',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'BricolageGrotesque Regular',
+                                color: Colors.black,
+                              ),
+                            ),
+                            const Spacer(),
+
+                            // Step 2: Pass a callback to update both the network text and image path
+                            NetworkDropdown(
+                              onSelected: (String network) {
+                                setState(() {
+                                  selectedNetwork =
+                                      network; // Update network text
+
+                                  // Update the image path based on the selected network
+                                  if (network == 'ERC-20') {
+                                    selectedImagePath =
+                                        'lib/images/usdtbarcode.png';
+                                  } else if (network == 'BEP-20') {
+                                    selectedImagePath =
+                                        'lib/images/ethbarcode.png'; // Your BEP-20 image
+                                  } else if (network == 'TRC-20') {
+                                    selectedImagePath =
+                                        'lib/images/btcbarcode.png'; // Your TRC-20 image
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 232, 232, 232),
+                          width: 1),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            address,
+                            style: const TextStyle(
+                              fontSize: 12,
+                              fontFamily: 'BricolageGrotesque Regular',
+                              overflow: TextOverflow
+                                  .ellipsis, // Ellipsis for long addresses
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(
+                            Icons.copy,
+                            size: 14,
+                          ),
+                          onPressed: () {
+                            // Copy to clipboard logic
+                            Clipboard.setData(ClipboardData(text: address));
+                            CustomSnackbar.showTopSnackbar(
+                                context, 'Address copied to clipboard!');
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const Dashboard(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return FadeTransition(
+                              opacity: animation,
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 50,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF00A3D0),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Center(
+                            child: Text(
+                              'Check Transaction',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontFamily: 'BricolageGrotesque Regular',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          );
+        },
       );
     },
   );
@@ -310,7 +430,7 @@ void lockCardModal(BuildContext context) {
             const Text(
               'Lock Card',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontFamily: 'BricolageGrotesque Bold',
               ),
             ),
@@ -420,7 +540,7 @@ void manageCardModal(BuildContext context) {
             const Text(
               'Manage Card',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontFamily: 'BricolageGrotesque Bold',
               ),
             ),
@@ -594,7 +714,7 @@ void deleteCardModal(BuildContext context) {
             const Text(
               'Delete Card ?',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontFamily: 'BricolageGrotesque Bold',
               ),
             ),
@@ -731,7 +851,7 @@ void deleteAccountModal(BuildContext context) {
             const Text(
               'Delete Account ?',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontFamily: 'BricolageGrotesque Bold',
               ),
             ),
@@ -868,7 +988,7 @@ void signOutModal(BuildContext context) {
             const Text(
               'Sign Out',
               style: TextStyle(
-                fontSize: 22,
+                fontSize: 20,
                 fontFamily: 'BricolageGrotesque Bold',
               ),
             ),
@@ -968,6 +1088,120 @@ void signOutModal(BuildContext context) {
   );
 }
 
+void oopsModal(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isDismissible: true,
+    transitionAnimationController: AnimationController(
+      vsync: Navigator.of(context),
+      duration: Duration(milliseconds: 800), // Adjust this for slower animation
+    ),
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(20),
+      ),
+    ),
+    backgroundColor: Colors.white,
+    builder: (BuildContext context) {
+      return Container(
+        height: 320,
+        padding:
+            const EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 10),
+            Center(
+              child: Container(
+                width: 100,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 226, 226, 226),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'Oops',
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'BricolageGrotesque Bold',
+              ),
+            ),
+            const SizedBox(height: 10),
+            Center(
+              child: Container(
+                width: 60,
+                height: 60,
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: color.AppColor.primaryDeleteButton_color,
+                    borderRadius: BorderRadius.circular(100)),
+                child: Center(
+                    child: Icon(
+                  Iconsax.logout,
+                  color: color.AppColor.red,
+                )),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Center(
+              child: Text(
+                'You do not have sufficient balance to carry out this transaction',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'BricolageGrotesque Light',
+                  color: color.AppColor.subtitle,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              child: Center(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+
+                        fixedSize: const Size(200,
+                            50), // Set width to 100 and height to 50 // Set width and height
+                        primary: color.AppColor.mainBtn_color2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              15), // Set the border radius
+                        ),
+                      ),
+                      child: Text(
+                        'Close',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'BricolageGrotesque Light',
+                          color: color.AppColor.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 void creatingCardModal(BuildContext context) {
   showModalBottomSheet(
     context: context,
@@ -1007,7 +1241,7 @@ void creatingCardModal(BuildContext context) {
                 Text(
                   'Create Card',
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 20,
                     fontFamily: 'BricolageGrotesque Bold',
                   ),
                 ),
@@ -1104,7 +1338,7 @@ void contactUsModal(BuildContext context) {
                       color: Color.fromARGB(255, 226, 226, 226),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Icon(Iconsax.close_circle),
+                    child: Icon(Iconsax.close_circle1),
                   ),
                 ),
               ],
@@ -1312,6 +1546,68 @@ Widget buildMethodButton(BuildContext context, String title, String description,
               fontWeight: FontWeight.w300,
             ),
             textAlign: TextAlign.start,
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget buildMethodButton2(
+    BuildContext context, String title, String description,
+    {required Function onTap}) {
+  return GestureDetector(
+    onTap: () => onTap(),
+    child: Container(
+      width: MediaQuery.of(context).size.width,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Color(0xFFAEAEAE), width: 1),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'BricolageGrotesque Medium',
+                ),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                description,
+                style: const TextStyle(
+                  fontSize: 12,
+                  fontFamily: 'BricolageGrotesque light',
+                  color: Color.fromARGB(255, 163, 163, 163),
+                  fontWeight: FontWeight.w300,
+                ),
+                textAlign: TextAlign.start,
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 247, 247, 247),
+                ),
+                child: const Text(
+                  'Currently unavailable',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontFamily: 'BricolageGrotesque Light',
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

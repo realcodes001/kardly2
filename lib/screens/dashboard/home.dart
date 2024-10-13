@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             _isAmountVisible ? '\$786.00' : '******',
                             style: const TextStyle(
-                              fontSize: 38,
+                              fontSize: 32,
                               fontFamily: 'BricolageGrotesque Bold',
                               color: Colors.black,
                             ),
@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           GestureDetector(
                             onTap: () {
-                              showDraggableScrollableModal(context);
+                              withdrawModal(context);
                             },
                             child: Container(
                               padding: const EdgeInsets.all(15),
