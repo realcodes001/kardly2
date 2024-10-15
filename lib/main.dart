@@ -1,14 +1,13 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; // Import Provider
 import 'package:kardly/screens/onboarding/splash_screen.dart';
-import 'package:kardly/screens/profile.dart';
-
-//import 'package:mamaa_app/utils.dart';
+import 'package:kardly/screens/profile.dart'; // If needed in navigation
+import 'provider/institutions_provider.dart';
+import 'package:kardly/provider/account_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   runApp(const App());
 }
 
@@ -19,13 +18,21 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScaffoldMessengerKey:
-    //Utils.messengerKey;
-    navigatorKey:
-    navigatorKey;
-    return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.white),
-      home: SplashScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => InstitutionProvider()..loadSavedDetails(),
+        ),
+        // Account Provider
+        ChangeNotifierProvider(
+          create: (_) => AccountProvider()..loadAccount(),
+        ),
+      ],
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
+        theme: ThemeData(primaryColor: Colors.white),
+        home: SplashScreen(),
+      ),
     );
   }
 }

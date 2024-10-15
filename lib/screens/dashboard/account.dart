@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kardly/cards/manage_cards.dart';
 import 'package:kardly/constants/colors.dart' as color;
+import 'package:kardly/screens/instiutions.dart';
 import 'package:kardly/screens/profile.dart';
 import 'package:kardly/utils/modals.dart';
 import 'package:kardly/screens/security/security_page.dart';
@@ -147,6 +148,62 @@ class _AccountState extends State<Account> {
                       ),
                       const Text(
                         'Manage Cards',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'BricolageGrotesque Regular',
+                        ),
+                      ),
+                      const Spacer(),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        size: 10,
+                        color: color.AppColor.arrowcolor,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const Institutions(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                        color: Color.fromARGB(255, 205, 205, 205), width: 1),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Iconsax.card,
+                        size: 14,
+                        color: color.AppColor.black,
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      const Text(
+                        'Add Bank',
                         style: TextStyle(
                           fontSize: 12,
                           fontFamily: 'BricolageGrotesque Regular',
