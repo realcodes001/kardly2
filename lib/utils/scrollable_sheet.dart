@@ -140,17 +140,20 @@ void showDraggableScrollableModal(BuildContext context) {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+                                  // Display both bank name and account name, or show 'No accounts available'
                                   Text(
-                                    provider.selectedAccount ??
-                                        'No accounts available',
+                                    _getBankAndAccountInfo(
+                                        provider), // Updated to show both bank and account
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: provider.selectedAccount != null
+                                      color: provider.savedBankName != null &&
+                                              provider.savedAccountName != null
                                           ? Colors.black
                                           : Colors.grey,
                                     ),
                                   ),
-                                  provider.selectedAccount != null
+                                  provider.savedBankName != null &&
+                                          provider.savedAccountName != null
                                       ? GestureDetector(
                                           onTap: () async {
                                             String? selected =
@@ -214,9 +217,7 @@ void showDraggableScrollableModal(BuildContext context) {
                                                         'BricolageGrotesque Light',
                                                   ),
                                                 ),
-                                                const SizedBox(
-                                                  width: 2,
-                                                ),
+                                                const SizedBox(width: 2),
                                                 Icon(
                                                   Icons.add,
                                                   size: 9,
@@ -254,4 +255,13 @@ void showDraggableScrollableModal(BuildContext context) {
       );
     },
   );
+}
+
+// Helper function to get the combined bank name and account name information
+String _getBankAndAccountInfo(AccountProvider provider) {
+  if (provider.savedBankName != null && provider.savedAccountName != null) {
+    return '${provider.savedBankName!} - ${provider.savedAccountName!}'; // Return combined bank and account names
+  } else {
+    return 'No accounts available'; // Default text
+  }
 }

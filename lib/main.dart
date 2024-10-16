@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:kardly/screens/onboarding/onboarding.dart';
 import 'package:provider/provider.dart'; // Import Provider
 import 'package:kardly/screens/onboarding/splash_screen.dart';
 import 'package:kardly/screens/profile.dart'; // If needed in navigation
@@ -31,7 +32,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         navigatorKey: navigatorKey,
         theme: ThemeData(primaryColor: Colors.white),
-        home: SplashScreen(),
+        home: Onboard(),
       ),
     );
   }

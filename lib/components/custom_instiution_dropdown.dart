@@ -103,24 +103,26 @@ class _CustomBankDropdownState extends State<CustomBankDropdown> {
                       widget.onBankSelected(bank['name']!);
                       _closeDropdown();
                     },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 8.0, horizontal: 10.0),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.account_balance,
-                              size: 12,
-                              color: Color.fromARGB(255, 210, 210, 210)),
-                          const SizedBox(width: 10),
-                          Text(
-                            bank['name']!,
-                            style: const TextStyle(
-                              fontSize: 12,
-                              fontFamily: 'BricolageGrotesque Light',
-                              color: Color.fromARGB(255, 0, 0, 0),
+                    child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 10.0),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.account_balance,
+                                size: 12,
+                                color: Color.fromARGB(255, 210, 210, 210)),
+                            const SizedBox(width: 10),
+                            Text(
+                              bank['name']!,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'BricolageGrotesque Light',
+                                color: Color.fromARGB(255, 0, 0, 0),
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );

@@ -12,6 +12,8 @@ import 'package:kardly/components/custom_snackbar.dart';
 import 'package:kardly/components/depo_sheet.dart';
 import 'package:kardly/provider/institutions_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:kardly/provider/account_provider.dart';
+import 'package:kardly/service/account_service.dart';
 
 void showBottomModal(BuildContext context) {
   showModalBottomSheet(
@@ -968,6 +970,7 @@ void deleteInstitutionModal(BuildContext context) {
     backgroundColor: Colors.white,
     builder: (BuildContext context) {
       final provider = Provider.of<InstitutionProvider>(context);
+      final provider2 = Provider.of<AccountProvider>(context);
 
       bool isSwitched = false;
       return Container(
@@ -1033,6 +1036,7 @@ void deleteInstitutionModal(BuildContext context) {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
+                        await provider2.deleteAccount();
                         await provider.deleteAccountDetails();
                         CustomSnackbar.showTopSnackbar(
                           context,

@@ -258,6 +258,8 @@ Widget _buildSaveButton(InstitutionSheetViewModel viewModel,
     onPressed: viewModel.isSaveButtonActive
         ? () async {
             await viewModel.saveAccountDetails(context, provider);
+            await provider
+                .loadAccount(); // Refresh the provider state after saving
             Navigator.pop(context);
           }
         : null,
