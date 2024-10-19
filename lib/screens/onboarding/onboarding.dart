@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kardly/auth/create_account.dart';
 import 'package:kardly/screens/dashboard/dashboard.dart';
 import 'package:kardly/screens/onboarding/onboarding_screen1.dart';
 import 'package:kardly/screens/onboarding/onboarding_screen2.dart';
@@ -71,7 +72,7 @@ class _OnboardState extends State<Onboard> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Dashboard(),
+                          builder: (context) => const CreateAccount(),
                         ),
                       );
                     },

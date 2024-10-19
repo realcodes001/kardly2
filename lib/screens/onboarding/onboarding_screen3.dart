@@ -20,7 +20,7 @@ class _OnboardingScreen3State extends State<OnboardingScreen3> {
           Container(
               width: 350,
               height: 280,
-              child: Image.asset('lib/images/subscribe.png')),
+              child: Image.asset('lib/images/all.png')),
           Text(
             "Pay for subscriptions",
             style: TextStyle(

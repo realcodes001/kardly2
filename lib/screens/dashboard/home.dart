@@ -183,9 +183,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     // Show different card widgets based on the index
                     switch (index) {
                       case 0:
-                        return const VisaCard();
-                      case 1:
                         return const MastercardCard();
+                      case 1:
+                        return const VisaCard();
                       case 2:
                         return const AmexCard();
                       default:
@@ -220,7 +220,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        color: color.AppColor.mainBtn_color,
+                        color: color.AppColor.black,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
                       ),
@@ -246,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(18),
                       decoration: BoxDecoration(
-                        color: color.AppColor.mainBtn_color,
+                        color: color.AppColor.black,
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: const Icon(

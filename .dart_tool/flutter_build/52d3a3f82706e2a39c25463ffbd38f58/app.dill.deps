@@ -1,5 +1,8 @@
 file:///Users/macbook/cardly/kardly/.dart_tool/flutter_build/52d3a3f82706e2a39c25463ffbd38f58/main.dart
 file:///Users/macbook/cardly/kardly/.dart_tool/package_config.json
+file:///Users/macbook/cardly/kardly/lib/auth/create_account.dart
+file:///Users/macbook/cardly/kardly/lib/auth/forgot_password.dart
+file:///Users/macbook/cardly/kardly/lib/auth/signin.dart
 file:///Users/macbook/cardly/kardly/lib/cards/amex_card.dart
 file:///Users/macbook/cardly/kardly/lib/cards/manage_cards.dart
 file:///Users/macbook/cardly/kardly/lib/cards/mastercard_card.dart

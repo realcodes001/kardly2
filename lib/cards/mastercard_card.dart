@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kardly/constants/colors.dart' as color;
 
 class MastercardCard extends StatefulWidget {
   const MastercardCard({Key? key}) : super(key: key);
@@ -93,33 +94,82 @@ class _MastercardCardState extends State<MastercardCard>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(), // Empty space to align content
+            Container(
+              height: 400,
+              padding: const EdgeInsets.only(
+                  left: 20, right: 10, top: 20, bottom: 20),
+              decoration: const BoxDecoration(
+                  color: Color.fromARGB(91, 41, 41, 41), // Side strip color
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    bottomLeft: Radius.circular(30),
+                  )),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Virtual card',
+                    style: TextStyle(
+                        color: color.AppColor.white,
+                        fontFamily: 'BricolageGrotesque SemiBold',
+                        fontSize: 12),
+                  ),
+                  Text(
+                    'Carson',
+                    style: TextStyle(
+                        color: color.AppColor.white,
+                        fontFamily: 'BricolageGrotesque Regular',
+                        fontSize: 12),
+                  ),
+                ],
+              ),
+            ), // Empty space to align content
             Container(
               width: 140,
               height: 400,
+              padding: const EdgeInsets.only(
+                  left: 10, right: 10, top: 20, bottom: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: const Color.fromARGB(91, 41, 41, 41), // Side strip color
               ),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 400,
-                    padding: const EdgeInsets.all(20),
+                    width: 100,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                        color: color.AppColor.cardbackcolor,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Text(
+                            'Show details',
+                            style: TextStyle(
+                                color: color.AppColor.white,
+                                fontFamily: 'BricolageGrotesque Light',
+                                fontSize: 12),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    child: const Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Text(
-                        'VISA',
-                        style: TextStyle(
-                          fontFamily: 'BricolageGrotesque Bold',
-                          fontSize: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                    child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                          width: 50,
+                          height: 50,
+                          child: Image.asset(
+                            'lib/images/mcard.png',
+                          ),
+                        )),
                   )
                 ],
               ),
@@ -138,19 +188,109 @@ class _MastercardCardState extends State<MastercardCard>
       width: 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: Color.fromARGB(
+        color: const Color.fromARGB(
             254, 0, 0, 0), // Same black background for the back side
       ),
-      child: Center(
-        child: Text(
-          'Mastercard Details\nHere!',
-          style: TextStyle(
-            fontFamily: 'BricolageGrotesque Bold',
-            fontSize: 20,
-            color: Colors.white,
-          ),
-          textAlign: TextAlign.center,
-        ),
+      child: Row(
+        children: [
+          Container(
+              padding: const EdgeInsets.all(25),
+              width: 250,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Card Number',
+                    style: TextStyle(
+                        color: color.AppColor.subtitle,
+                        fontFamily: 'BricolageGrotesque Light',
+                        fontSize: 10),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    '0000 0000 0000 0000 0000',
+                    style: TextStyle(
+                        color: color.AppColor.white,
+                        fontFamily: 'BricolageGrotesque Bold',
+                        fontSize: 14),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Valid Thru',
+                    style: TextStyle(
+                        color: color.AppColor.subtitle,
+                        fontFamily: 'BricolageGrotesque Light',
+                        fontSize: 10),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    '08/29',
+                    style: TextStyle(
+                        color: color.AppColor.white,
+                        fontFamily: 'BricolageGrotesque Bold',
+                        fontSize: 14),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Cvv',
+                    style: TextStyle(
+                        color: color.AppColor.subtitle,
+                        fontFamily: 'BricolageGrotesque Light',
+                        fontSize: 10),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    '001',
+                    style: TextStyle(
+                        color: color.AppColor.white,
+                        fontFamily: 'BricolageGrotesque Bold',
+                        fontSize: 14),
+                  ),
+                ],
+              )),
+          Container(
+              height: 400,
+              width: 50,
+              padding: EdgeInsets.only(top: 25, bottom: 25),
+              decoration: BoxDecoration(
+                  color: color.AppColor.cardbackcolor,
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  )),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Center(
+                    child: RotatedBox(
+                      quarterTurns: 1, // 1 quarter turn is 90 degrees
+                      child: Row(
+                        children: [
+                          Text(
+                            'Virtual card',
+                            style: TextStyle(
+                                color: color.AppColor.white,
+                                fontFamily: 'BricolageGrotesque Bold',
+                                fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ))
+        ],
       ),
     );
   }
