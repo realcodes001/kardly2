@@ -26,6 +26,10 @@ collection
 2.12
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0/
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/collection-1.16.0/lib/
+confetti
+2.17
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/confetti-0.7.0/
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/confetti-0.7.0/lib/
 crypto
 2.14
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.2/
@@ -34,6 +38,14 @@ cupertino_icons
 2.12
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5/
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/cupertino_icons-1.0.5/lib/
+dependencies
+2.0
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/dependencies-0.1.5/
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/dependencies-0.1.5/lib/
+disposables
+2.0
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/disposables-0.1.2/
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/disposables-0.1.2/lib/
 fake_async
 2.12
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/fake_async-1.3.0/
@@ -138,6 +150,10 @@ provider
 2.12
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.1.2/
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/provider-6.1.2/lib/
+quiver
+2.0
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.1.5/
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-2.1.5/lib/
 shared_preferences
 2.17
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.1.1/
@@ -166,6 +182,10 @@ shared_preferences_windows
 2.17
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.2.0/
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences_windows-2.2.0/lib/
+shimmer
+2.12
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer-2.0.0/
+file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer-2.0.0/lib/
 smooth_page_indicator
 2.12
 file:///Users/macbook/developer/flutter/.pub-cache/hosted/pub.dartlang.org/smooth_page_indicator-1.2.0+3/

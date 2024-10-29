@@ -39,7 +39,7 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
     // Initialize the animation controller
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500), // Duration of the animation
+      duration: const Duration(milliseconds: 800), // Duration of the animation
     );
 
     // Define the sliding animation (from -1.0 to 0.0 in y-axis)
@@ -71,22 +71,23 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
         position: _offsetAnimation,
         child: Material(
           color: Colors.transparent,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            decoration: BoxDecoration(
-              color:
-                  Colors.white.withOpacity(0.2), // Semi-transparent background
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.white
-                    .withOpacity(0.3), // Slightly transparent border
+          child: BackdropFilter(
+            filter:
+                ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0), // Glass effect
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 255, 255, 255)
+                    .withOpacity(0.2), // Semi-transparent background
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Color.fromARGB(255, 229, 229, 229)
+                      .withOpacity(0.3), // Slightly transparent border
+                ),
               ),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10), // Match container radius
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                    sigmaX: 10.0, sigmaY: 10.0), // Glass effect
+              child: ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(10), // Match container radius
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
@@ -94,7 +95,8 @@ class _SnackbarWidgetState extends State<_SnackbarWidget>
                     style: const TextStyle(
                       fontSize: 14,
                       fontFamily: 'BricolageGrotesque Regular',
-                      color: Colors.white, // Text color for contrast
+                      color: Color.fromARGB(
+                          255, 60, 60, 60), // Text color for contrast
                     ),
                     textAlign: TextAlign.center,
                   ),

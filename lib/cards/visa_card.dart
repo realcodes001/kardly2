@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kardly/constants/colors.dart' as color;
 
 class VisaCard extends StatefulWidget {
   const VisaCard({Key? key}) : super(key: key);
@@ -143,16 +144,107 @@ class _VisaCardState extends State<VisaCard>
         borderRadius: BorderRadius.circular(30),
         color: Color.fromARGB(255, 0, 149, 190),
       ),
-      child: Center(
-        child: Text(
-          'Card Details\nHere!',
-          style: TextStyle(
-            fontFamily: 'BricolageGrotesque Bold',
-            fontSize: 20,
-            color: Colors.white,
-          ),
-          textAlign: TextAlign.center,
-        ),
+      child: Row(
+        children: [
+          Container(
+              padding: const EdgeInsets.all(25),
+              width: 250,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Card Number',
+                    style: TextStyle(
+                        color: color.AppColor.subtitle,
+                        fontFamily: 'BricolageGrotesque Light',
+                        fontSize: 10),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    '0000 0000 0000 0000 0000',
+                    style: TextStyle(
+                        color: color.AppColor.white,
+                        fontFamily: 'BricolageGrotesque Bold',
+                        fontSize: 14),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Valid Thru',
+                    style: TextStyle(
+                        color: color.AppColor.subtitle,
+                        fontFamily: 'BricolageGrotesque Light',
+                        fontSize: 10),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    '08/29',
+                    style: TextStyle(
+                        color: color.AppColor.white,
+                        fontFamily: 'BricolageGrotesque Bold',
+                        fontSize: 14),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Cvv',
+                    style: TextStyle(
+                        color: color.AppColor.subtitle,
+                        fontFamily: 'BricolageGrotesque Light',
+                        fontSize: 10),
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    '001',
+                    style: TextStyle(
+                        color: color.AppColor.white,
+                        fontFamily: 'BricolageGrotesque Bold',
+                        fontSize: 14),
+                  ),
+                ],
+              )),
+          Spacer(),
+          Container(
+              height: 400,
+              width: 50,
+              padding: EdgeInsets.only(top: 25, bottom: 25),
+              decoration: BoxDecoration(
+                  color: color.AppColor.teal,
+                  borderRadius: const BorderRadius.only(
+                    bottomRight: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  )),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Center(
+                    child: RotatedBox(
+                      quarterTurns: 1, // 1 quarter turn is 90 degrees
+                      child: Row(
+                        children: [
+                          Text(
+                            'Virtual card',
+                            style: TextStyle(
+                                color: color.AppColor.white,
+                                fontFamily: 'BricolageGrotesque Bold',
+                                fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ))
+        ],
       ),
     );
   }

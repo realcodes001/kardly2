@@ -103,15 +103,27 @@ void showDraggableScrollableModal(BuildContext context) {
                           const SizedBox(height: 4),
                           TextField(
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              hintText: 'How much do you want to withdraw?',
-                              hintStyle: const TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey,
-                              ),
-                            ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15)),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                    color: Color.fromARGB(255, 232, 232, 232),
+                                    width: 1.2, // Border width
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: color.AppColor.mainBtn_color2,
+                                    width: 2.0, // Adjust thickness
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                hintText: 'How much do you want to withdraw?',
+                                hintStyle: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: 'BricolageGrotesque Regular',
+                                    color: Colors.grey)),
                           ),
                           const SizedBox(height: 20),
                           const Text(
@@ -237,6 +249,7 @@ void showDraggableScrollableModal(BuildContext context) {
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               minimumSize: const Size(double.infinity, 60),
+                              primary: color.AppColor.black,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),

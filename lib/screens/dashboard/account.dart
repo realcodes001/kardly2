@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kardly/cards/manage_cards.dart';
+import 'package:kardly/components/modals/contact_us_modal.dart';
+import 'package:kardly/components/modals/delete_account_modal.dart';
+import 'package:kardly/components/modals/sign_out_modal.dart';
+
 import 'package:kardly/constants/colors.dart' as color;
 import 'package:kardly/screens/instiutions.dart';
 import 'package:kardly/screens/profile.dart';

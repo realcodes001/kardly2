@@ -202,7 +202,7 @@ void showDepositSheet(BuildContext context) {
                           child: Container(
                             height: 50,
                             decoration: BoxDecoration(
-                              color: const Color(0xFF00A3D0),
+                              color: color.AppColor.black,
                               borderRadius: BorderRadius.circular(15),
                             ),
                             child: const Center(

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:kardly/components/modals/delete_card_modal.dart';
+import 'package:kardly/components/modals/lock_card_modal.dart';
+import 'package:kardly/components/modals/manage_card_modal.dart';
+
 import 'package:kardly/constants/colors.dart' as color;
 
 // Import the individual card widgets
 import 'package:kardly/cards/visa_card.dart';
 import 'package:kardly/cards/mastercard_card.dart';
-import 'package:kardly/cards/amex_card.dart';
 import 'package:kardly/screens/cardscreens/create_card.dart';
 import 'package:kardly/utils/modals.dart';
 
@@ -28,12 +31,13 @@ class _ManageCardsState extends State<ManageCards> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding:
-              const EdgeInsets.only(top: 20, bottom: 40, left: 25, right: 25),
+          padding: const EdgeInsets.only(top: 20, bottom: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
+                padding: const EdgeInsets.only(
+                    top: 20, bottom: 40, left: 25, right: 25),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,9 +81,6 @@ class _ManageCardsState extends State<ManageCards> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 40,
-              ),
               SizedBox(
                 height: 400, // Adjust the height to fit the card size
                 child: PageView(
@@ -91,9 +92,9 @@ class _ManageCardsState extends State<ManageCards> {
                     });
                   },
                   children: const [
-                    VisaCard(),
                     MastercardCard(),
-                    AmexCard(),
+                    VisaCard(),
+                    //AmexCard(),
                   ],
                 ),
               ),
@@ -104,7 +105,7 @@ class _ManageCardsState extends State<ManageCards> {
                   // Dots indicator to show the current card index
                   buildDotIndicator(0),
                   buildDotIndicator(1),
-                  buildDotIndicator(2),
+                  //buildDotIndicator(2),
                 ],
               ),
               const SizedBox(
@@ -223,75 +224,85 @@ class _ManageCardsState extends State<ManageCards> {
               const SizedBox(
                 height: 40,
               ),
-              GestureDetector(
-                onTap: () => {manageCardModal(context)},
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Color(0xFFAEAEAE), width: 1),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Manage card',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'BricolageGrotesque Medium',
+              Container(
+                padding: const EdgeInsets.only(
+                    top: 20, bottom: 40, left: 25, right: 25),
+                child: Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () => {manageCardModal(context)},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border:
+                              Border.all(color: Color(0xFFAEAEAE), width: 1),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Manage card',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'BricolageGrotesque Medium',
+                              ),
+                            ),
+                            SizedBox(height: 3),
+                            Text(
+                              'Manage your card',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'BricolageGrotesque light',
+                                color: Color.fromARGB(255, 163, 163, 163),
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 3),
-                      Text(
-                        'Manage your card',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'BricolageGrotesque light',
-                          color: Color.fromARGB(255, 163, 163, 163),
-                          fontWeight: FontWeight.w300,
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () => {},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border:
+                              Border.all(color: Color(0xFFAEAEAE), width: 1),
                         ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              GestureDetector(
-                onTap: () => {},
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Color(0xFFAEAEAE), width: 1),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
-                        'Spending Limit',
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: 'BricolageGrotesque Medium',
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              'Spending Limit',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: 'BricolageGrotesque Medium',
+                              ),
+                            ),
+                            SizedBox(height: 3),
+                            Text(
+                              'Set a limit for your transactions',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: 'BricolageGrotesque light',
+                                color: Color.fromARGB(255, 163, 163, 163),
+                                fontWeight: FontWeight.w300,
+                              ),
+                              textAlign: TextAlign.start,
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(height: 3),
-                      Text(
-                        'Set a limit for your transactions',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'BricolageGrotesque light',
-                          color: Color.fromARGB(255, 163, 163, 163),
-                          fontWeight: FontWeight.w300,
-                        ),
-                        textAlign: TextAlign.start,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

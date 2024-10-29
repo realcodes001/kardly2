@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:kardly/cards/manage_cards.dart';
+import 'package:kardly/components/modals/top_up_modal.dart';
+import 'package:kardly/components/modals/withdraw_modal.dart';
+
 import 'package:kardly/constants/colors.dart' as color;
 import 'package:kardly/screens/cardscreens/create_card.dart';
 import 'package:kardly/utils/modals.dart';
@@ -172,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: 400,
                 child: Swiper(
-                  itemCount: 3, // Since we have 3 cards
+                  itemCount: 2, // Since we have 3 cards
                   itemWidth: 320,
                   // Adjust to your liking
                   itemHeight: 400,
@@ -186,10 +189,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         return const MastercardCard();
                       case 1:
                         return const VisaCard();
-                      case 2:
-                        return const AmexCard();
+                      //case 2:
+                      //return const AmexCard();
                       default:
-                        return const VisaCard(); // Fallback card
+                        return const MastercardCard(); // Fallback card
                     }
                   },
                 ),

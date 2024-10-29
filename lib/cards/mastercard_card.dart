@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kardly/constants/colors.dart' as color;
+import 'package:shimmer/shimmer.dart';
 
 class MastercardCard extends StatefulWidget {
   const MastercardCard({Key? key}) : super(key: key);
@@ -13,6 +15,7 @@ class _MastercardCardState extends State<MastercardCard>
   bool _showBack = false;
   late AnimationController _controller;
   late Animation<double> _animation;
+  bool _showShimmer = false; // Initially shimmer is off
 
   @override
   void initState() {
@@ -30,6 +33,20 @@ class _MastercardCardState extends State<MastercardCard>
       _controller.reverse();
     } else {
       _controller.forward();
+
+      // Start the shimmer when flipping to the back of the card
+      setState(() {
+        _showShimmer = true;
+      });
+
+      // Timer to stop the shimmer effect after 15 seconds
+      Timer(const Duration(seconds: 10), () {
+        if (_showBack) {
+          setState(() {
+            _showShimmer = false;
+          });
+        }
+      });
     }
     setState(() {
       _showBack = !_showBack;
@@ -49,11 +66,9 @@ class _MastercardCardState extends State<MastercardCard>
       child: AnimatedBuilder(
         animation: _animation,
         builder: (context, child) {
-          // Calculate rotation angle
           double rotationAngle =
               _animation.value * 3.1416; // Full π radians (180 degrees)
 
-          // Rotate depending on the front or back of the card
           if (_animation.value >= 0.5) {
             rotationAngle =
                 (_animation.value - 1) * 3.1416; // Adjust for back view
@@ -89,7 +104,7 @@ class _MastercardCardState extends State<MastercardCard>
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          color: const Color(0xDF000000), // Main card color (black)
+          color: const Color.fromARGB(236, 0, 0, 0), // Main card color (black)
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,32 +113,28 @@ class _MastercardCardState extends State<MastercardCard>
               height: 400,
               padding: const EdgeInsets.only(
                   left: 20, right: 10, top: 20, bottom: 20),
-              decoration: const BoxDecoration(
-                  color: Color.fromARGB(91, 41, 41, 41), // Side strip color
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                  )),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Virtual card',
                     style: TextStyle(
-                        color: color.AppColor.white,
-                        fontFamily: 'BricolageGrotesque SemiBold',
-                        fontSize: 12),
+                      color: color.AppColor.white,
+                      fontFamily: 'BricolageGrotesque SemiBold',
+                      fontSize: 12,
+                    ),
                   ),
                   Text(
                     'Carson',
                     style: TextStyle(
-                        color: color.AppColor.white,
-                        fontFamily: 'BricolageGrotesque Regular',
-                        fontSize: 12),
+                      color: color.AppColor.white,
+                      fontFamily: 'BricolageGrotesque Regular',
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
-            ), // Empty space to align content
+            ),
             Container(
               width: 140,
               height: 400,
@@ -137,11 +148,12 @@ class _MastercardCardState extends State<MastercardCard>
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 100,
+                    width: 80,
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                        color: color.AppColor.cardbackcolor,
-                        borderRadius: BorderRadius.circular(10)),
+                      color: color.AppColor.cardbackcolor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -149,9 +161,10 @@ class _MastercardCardState extends State<MastercardCard>
                           child: Text(
                             'Show details',
                             style: TextStyle(
-                                color: color.AppColor.white,
-                                fontFamily: 'BricolageGrotesque Light',
-                                fontSize: 12),
+                              color: color.AppColor.white,
+                              fontFamily: 'BricolageGrotesque Light',
+                              fontSize: 10,
+                            ),
                           ),
                         )
                       ],
@@ -162,15 +175,16 @@ class _MastercardCardState extends State<MastercardCard>
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Align(
-                        alignment: Alignment.bottomRight,
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          child: Image.asset(
-                            'lib/images/mcard.png',
-                          ),
-                        )),
-                  )
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        child: Image.asset(
+                          'lib/images/mcard.png',
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -194,103 +208,120 @@ class _MastercardCardState extends State<MastercardCard>
       child: Row(
         children: [
           Container(
-              padding: const EdgeInsets.all(25),
-              width: 250,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Card Number',
-                    style: TextStyle(
-                        color: color.AppColor.subtitle,
-                        fontFamily: 'BricolageGrotesque Light',
-                        fontSize: 10),
+            padding: const EdgeInsets.all(25),
+            width: 250,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Card Number',
+                  style: TextStyle(
+                    color: color.AppColor.subtitle,
+                    fontFamily: 'BricolageGrotesque Light',
+                    fontSize: 10,
                   ),
-                  const SizedBox(
-                    height: 8,
+                ),
+                const SizedBox(height: 4),
+                _showShimmer
+                    ? _buildShimmerBlock(
+                        width: 150, height: 20) // Shimmer block placeholder
+                    : _buildNormalText('0000 0000 0000 0000 0000'),
+                const SizedBox(height: 20),
+                Text(
+                  'Valid Thru',
+                  style: TextStyle(
+                    color: color.AppColor.subtitle,
+                    fontFamily: 'BricolageGrotesque Light',
+                    fontSize: 10,
                   ),
-                  Text(
-                    '0000 0000 0000 0000 0000',
-                    style: TextStyle(
-                        color: color.AppColor.white,
-                        fontFamily: 'BricolageGrotesque Bold',
-                        fontSize: 14),
+                ),
+                const SizedBox(height: 4),
+                _showShimmer
+                    ? _buildShimmerBlock(
+                        width: 60, height: 20) // Shimmer block placeholder
+                    : _buildNormalText('08/29'),
+                const SizedBox(height: 20),
+                Text(
+                  'Cvv',
+                  style: TextStyle(
+                    color: color.AppColor.subtitle,
+                    fontFamily: 'BricolageGrotesque Light',
+                    fontSize: 10,
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Valid Thru',
-                    style: TextStyle(
-                        color: color.AppColor.subtitle,
-                        fontFamily: 'BricolageGrotesque Light',
-                        fontSize: 10),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    '08/29',
-                    style: TextStyle(
-                        color: color.AppColor.white,
-                        fontFamily: 'BricolageGrotesque Bold',
-                        fontSize: 14),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Cvv',
-                    style: TextStyle(
-                        color: color.AppColor.subtitle,
-                        fontFamily: 'BricolageGrotesque Light',
-                        fontSize: 10),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    '001',
-                    style: TextStyle(
-                        color: color.AppColor.white,
-                        fontFamily: 'BricolageGrotesque Bold',
-                        fontSize: 14),
-                  ),
-                ],
-              )),
+                ),
+                const SizedBox(height: 4),
+                _showShimmer
+                    ? _buildShimmerBlock(
+                        width: 40, height: 20) // Shimmer block placeholder
+                    : _buildNormalText('001'),
+              ],
+            ),
+          ),
+          Spacer(),
           Container(
-              height: 400,
-              width: 50,
-              padding: EdgeInsets.only(top: 25, bottom: 25),
-              decoration: BoxDecoration(
-                  color: color.AppColor.cardbackcolor,
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  )),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Center(
-                    child: RotatedBox(
-                      quarterTurns: 1, // 1 quarter turn is 90 degrees
-                      child: Row(
-                        children: [
-                          Text(
-                            'Virtual card',
-                            style: TextStyle(
-                                color: color.AppColor.white,
-                                fontFamily: 'BricolageGrotesque Bold',
-                                fontSize: 14),
+            height: 400,
+            width: 50,
+            padding: const EdgeInsets.only(top: 25, bottom: 25),
+            decoration: BoxDecoration(
+              color: color.AppColor.cardbackcolor,
+              borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Center(
+                  child: RotatedBox(
+                    quarterTurns: 1,
+                    child: Row(
+                      children: [
+                        Text(
+                          'Virtual card',
+                          style: TextStyle(
+                            color: color.AppColor.white,
+                            fontFamily: 'BricolageGrotesque Bold',
+                            fontSize: 14,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  )
-                ],
-              ))
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
+      ),
+    );
+  }
+
+  // Method to build the shimmer effect block (as a shiny rectangle)
+  Widget _buildShimmerBlock({required double width, required double height}) {
+    return Shimmer.fromColors(
+      baseColor: const Color.fromARGB(255, 75, 75, 75),
+      highlightColor: const Color.fromARGB(255, 140, 140, 140),
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 107, 107, 107),
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
+    );
+  }
+
+  // Method to build the normal text after shimmer ends
+  Widget _buildNormalText(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        color: color.AppColor.white,
+        fontFamily: 'BricolageGrotesque Bold',
+        fontSize: 14,
       ),
     );
   }

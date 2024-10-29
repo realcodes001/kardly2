@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:kardly/components/modals/delete_institution_modal.dart';
 import 'package:provider/provider.dart';
 import 'package:kardly/utils/modals.dart';
 import 'package:kardly/components/custom_snackbar.dart';
@@ -179,36 +180,39 @@ class _InstitutionsState extends State<Institutions> {
                 ),
               ),
               const SizedBox(height: 4),
-              TextField(
-                keyboardType: TextInputType.number,
-                onChanged: provider.setAccountNumber,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontFamily: 'BricolageGrotesque Regular',
-                  color: color.AppColor.black,
+              GestureDetector(
+                onTap: () {},
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  onChanged: provider.setAccountNumber,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'BricolageGrotesque Regular',
+                    color: color.AppColor.black,
+                  ),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 232, 232, 232),
+                          width: 1.5, // Border width
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: color.AppColor.mainBtn_color2,
+                          width: 2.0, // Adjust thickness
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Enter your account number',
+                      hintStyle: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'BricolageGrotesque Regular',
+                          color: Colors.grey)),
                 ),
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15)),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: Color.fromARGB(255, 232, 232, 232),
-                        width: 1.5, // Border width
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: color.AppColor.mainBtn_color2,
-                        width: 2.0, // Adjust thickness
-                      ),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    hintText: 'Enter your account number',
-                    hintStyle: const TextStyle(
-                        fontSize: 12,
-                        fontFamily: 'BricolageGrotesque Regular',
-                        color: Colors.grey)),
               ),
               const SizedBox(height: 20),
 

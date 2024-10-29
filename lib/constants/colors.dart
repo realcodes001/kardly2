@@ -5,6 +5,7 @@ class AppColor {
   static Color mainBtn_color = Color.fromARGB(255, 0, 0, 0);
   static Color mainBtn_color2 = Color.fromARGB(255, 0, 0, 0);
   static Color secondary_color = const Color(0xFFBFF1FF);
+  static Color teal = Color.fromARGB(255, 17, 203, 255);
   static Color subtitle = const Color(0xFF919191);
   static Color eti = const Color(0xFFDEFFF6);
   static Color red = Color.fromARGB(255, 255, 60, 60);
@@ -16,5 +17,5 @@ class AppColor {
   static Color white = Color.fromARGB(255, 255, 255, 255);
   static Color primaryDeleteButton_color = const Color(0xFFFFE7E7);
   static Color secondaryDeleteButton_color = const Color(0xFFF8F8F8);
-  static Color cardbackcolor = Color.fromARGB(255, 81, 81, 81);
+  static Color cardbackcolor = Color.fromARGB(255, 38, 38, 38);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:kardly/components/modals/top_up_modal.dart';
 import 'package:kardly/constants/colors.dart' as color;
 import 'package:kardly/utils/modals.dart';
 import 'package:kardly/utils/modals2.dart';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kardly/components/modals/error_modal.dart';
 import 'package:kardly/constants/colors.dart' as color;
 import 'package:kardly/components/modal_dropdown.dart';
 import 'package:kardly/utils/modals.dart';
@@ -139,32 +140,38 @@ void walletModal(BuildContext context) {
                                       color: Colors.black),
                                 ),
                                 const SizedBox(height: 4),
-                                TextField(
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 232, 232, 232),
+                                            width: 1.2, // Border width
+                                          ),
                                           borderRadius:
-                                              BorderRadius.circular(15)),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 232, 232, 232),
-                                          width: 1.5, // Border width
+                                              BorderRadius.circular(15),
                                         ),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: color.AppColor.mainBtn_color2,
-                                          width: 2.0, // Adjust thickness
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color:
+                                                color.AppColor.mainBtn_color2,
+                                            width: 2.0, // Adjust thickness
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      hintText: 'Enter your wallet address ?',
-                                      hintStyle: const TextStyle(
-                                          fontSize: 12,
-                                          fontFamily:
-                                              'BricolageGrotesque Regular',
-                                          color: Colors.grey)),
+                                        hintText: 'Enter your wallet address ?',
+                                        hintStyle: const TextStyle(
+                                            fontSize: 12,
+                                            fontFamily:
+                                                'BricolageGrotesque Regular',
+                                            color: Colors.grey)),
+                                  ),
                                 ),
                                 const SizedBox(height: 20),
                                 Row(
@@ -191,34 +198,40 @@ void walletModal(BuildContext context) {
                                 const SizedBox(
                                   height: 4,
                                 ),
-                                TextField(
-                                  keyboardType: TextInputType.phone,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: TextField(
+                                    keyboardType: TextInputType.phone,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15)),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: const BorderSide(
+                                            color: Color.fromARGB(
+                                                255, 232, 232, 232),
+                                            width: 1.2, // Border width
+                                          ),
                                           borderRadius:
-                                              BorderRadius.circular(15)),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: const BorderSide(
-                                          color: Color.fromARGB(
-                                              255, 232, 232, 232),
-                                          width: 1.5, // Border width
+                                              BorderRadius.circular(15),
                                         ),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: color.AppColor.mainBtn_color2,
-                                          width: 2.0, // Adjust thickness
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color:
+                                                color.AppColor.mainBtn_color2,
+                                            width: 2.0, // Adjust thickness
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      hintText:
-                                          'How much do you want to withdraw ?',
-                                      hintStyle: const TextStyle(
-                                          fontSize: 12,
-                                          fontFamily:
-                                              'BricolageGrotesque Regular',
-                                          color: Colors.grey)),
+                                        hintText:
+                                            'How much do you want to withdraw ?',
+                                        hintStyle: const TextStyle(
+                                            fontSize: 12,
+                                            fontFamily:
+                                                'BricolageGrotesque Regular',
+                                            color: Colors.grey)),
+                                  ),
                                 ),
                                 const SizedBox(height: 60),
                                 ElevatedButton(

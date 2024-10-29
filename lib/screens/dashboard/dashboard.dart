@@ -46,7 +46,7 @@ class _DashboardState extends State<Dashboard> {
                   Iconsax.note,
                   size: 20,
                 ),
-                label: 'History',
+                label: 'Transactions',
               ),
               BottomNavigationBarItem(
                   icon: Icon(
@@ -58,6 +58,7 @@ class _DashboardState extends State<Dashboard> {
             selectedItemColor: Colors.black, // Set selected item color
             unselectedItemColor: Color.fromARGB(255, 60, 60, 60),
             showSelectedLabels: true,
+
             showUnselectedLabels: true,
             backgroundColor:
                 Color.fromARGB(255, 239, 239, 239), // Set unselected item color
